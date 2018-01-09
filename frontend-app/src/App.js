@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import TempHumidView from './widgets/Temperature';
+import TempView from './widgets/Temperature';
+import HumidityView from './widgets/Humidity';
 import HoursView from './widgets/BusyHours';
-import BusyHours from './widgets/BusyHours';
 import './styles/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {Grid, Row, Col} from 'react-bootstrap';
@@ -14,8 +14,9 @@ class App extends Component {
           <h1 className="App-title">SpyPi Dashboard</h1>
         </header>
         <div className='container'>
-          <TempHumidView/>
-          <BusyHours/>
+          <TempView/>
+          <HumidityView/>
+          <HoursView/>
         </div>
       </div>
     );

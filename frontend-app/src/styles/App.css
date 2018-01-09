@@ -19,12 +19,10 @@
 }
 
 .container{
-  align-content:center;
+  width: 100%;
   display: flex;
-  -webkit-flex-direction: row;
   flex-direction: row;
-  flex-wrap:wrap;
-  justify-content: flex-start;
-  
+  flex-wrap: wrap;
+  justify-content: center;
 }
 

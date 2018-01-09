@@ -19,27 +19,26 @@ const data = [
     }
 ];
 
-
-class TempView extends Component {
+class HumidityView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currTemp: '0',
-            maxTemp: '100',
-            minTemp: '-100',
-            avgTemp: '50'
-        };
+            currHumid: '0',
+            minHumid: '0',
+            maxHumid: '100',
+            avgHumid: '50'
+        }
     }
     render() {
         return (
             <div className="tableStyle">
                 <table>
                     <div>
-                        <h1>Temperature View</h1>
-                        <p>Current Temperature: {this.state.currTemp}</p>
-                        <p>Minimum Temperature: {this.state.minTemp}</p>
-                        <p>Maximum Temperature: {this.state.maxTemp}</p>
-                        <p>Average Temperature: {this.state.avgTemp}</p>
+                        <h1>Humidity View</h1>
+                        <p>Current Humidity: {this.state.currHumid}</p>
+                        <p>Minimum Humidity: {this.state.minhumid}</p>
+                        <p>Maximum Humidity: {this.state.maxHumid}</p>
+                        <p>Average Humidity: {this.state.avgHumid}</p>
                     </div>
                     <VictoryChart // adding the material theme provided with Victory
                         theme={VictoryTheme.material} domainPadding={20}>
@@ -55,7 +54,6 @@ class TempView extends Component {
         );
     }
 }
-
 
 
 class ShowAll extends Component {
@@ -107,4 +105,5 @@ class ShowAll extends Component {
 }
 
 
-export default TempView;
+
+export default HumidityView;
