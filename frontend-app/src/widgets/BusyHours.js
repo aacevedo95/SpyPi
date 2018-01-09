@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../styles/widgets.css'
 import {VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
-import Temperature, {ShowAll} from './Temperature';
 import {Button, Modal} from 'react-bootstrap';
 
 const data = [

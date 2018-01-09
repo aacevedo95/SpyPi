@@ -4,7 +4,6 @@ import HumidityView from './widgets/Humidity';
 import HoursView from './widgets/BusyHours';
 import './styles/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {Grid, Row, Col} from 'react-bootstrap';
 
 class App extends Component {
   render() {
