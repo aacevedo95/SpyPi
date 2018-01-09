@@ -2,7 +2,7 @@
 
 dht DHT;
 
-#define DHT11_PIN 14
+#define DHT11_PIN 13
 
 const int trigPin = 2;
 const int echoPin = 4;
