@@ -2,14 +2,14 @@
 
 dht DHT;
 
-#define DHT11_PIN 13
+#define DHT11_PIN A0
 
 const int trigPin = 2;
 const int echoPin = 4;
 
 void setup() {
   //DHT 11 Module
-  Serial.begin(9600);
+  Serial.begin(250000);
 }
 
 void loop() {
