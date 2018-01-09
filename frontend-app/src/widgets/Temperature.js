@@ -19,18 +19,7 @@ const data = [
     }
 ];
 
-class TempHumidView extends Component {
-    render() {
-        return (
-            <div className="container">
-                <TempView/>
-                <HumidityView/>
-            </div>
-        );
-    }
-}
-
-class TempView extends Component {
+class TemperatureTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -66,41 +55,7 @@ class TempView extends Component {
     }
 }
 
-class HumidityView extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currHumid: '0',
-            minHumid: '0',
-            maxHumid: '100',
-            avgHumid: '50'
-        }
-    }
-    render() {
-        return (
-            <div className="tableStyle">
-                <table>
-                    <div>
-                        <h1>Humidity View</h1>
-                        <p>Current Humidity: {this.state.currHumid}</p>
-                        <p>Minimum Humidity: {this.state.minhumid}</p>
-                        <p>Maximum Humidity: {this.state.maxHumid}</p>
-                        <p>Average Humidity: {this.state.avgHumid}</p>
-                    </div>
-                    <VictoryChart // adding the material theme provided with Victory
-                        theme={VictoryTheme.material} domainPadding={20}>
-                        <VictoryAxis
-                            tickValues={[1, 2, 3, 4]}
-                            tickFormat={["1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM"]}/>
-                        <VictoryAxis dependentAxis tickFormat={(x) => (`${x}F`)}/>
-                        <VictoryLine data={data} x="hour" y="temp"/>
-                    </VictoryChart>
-                    <ShowAll />
-                </table>
-            </div>
-        );
-    }
-}
+
 
 class ShowAll extends Component {
     constructor(props) {
@@ -151,4 +106,4 @@ class ShowAll extends Component {
 }
 
 
-export default TempHumidView;
+export default TemperatureTab;

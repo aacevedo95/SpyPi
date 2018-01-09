@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import '../styles/widgets.css'
 import {VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
-import Temperature, {ShowAll} from './Temperature';
 import {Button, Modal} from 'react-bootstrap';
+import '../styles/widgets.css'
 
 const data = [
     {
@@ -20,26 +19,26 @@ const data = [
     }
 ];
 
-class HoursTab extends Component {
+class HumidityTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            curBusyHour: '0',
-            avgBusyHour: '100',
-            mostBusyHour: '-100',
-            leastBusyHour: '50'
-        };
+            currHumid: '0',
+            minHumid: '0',
+            maxHumid: '100',
+            avgHumid: '50'
+        }
     }
     render() {
         return (
             <div className="tableStyle">
                 <table>
                     <div>
-                        <h1>Busy Hours</h1>
-                        <p>Busiest Hour: {this.state.curBusyHour}</p>
-                        <p>Average Busy Hour: {this.state.avgBusyHour}</p>
-                        <p>Most Busy Hour: {this.state.mostBusyHour}</p>
-                        <p>Least Busy Hour: {this.state.leastBusyHour}</p>
+                        <h1>Humidity View</h1>
+                        <p>Current Humidity: {this.state.currHumid}</p>
+                        <p>Minimum Humidity: {this.state.minhumid}</p>
+                        <p>Maximum Humidity: {this.state.maxHumid}</p>
+                        <p>Average Humidity: {this.state.avgHumid}</p>
                     </div>
                     <VictoryChart // adding the material theme provided with Victory
                         theme={VictoryTheme.material} domainPadding={20}>
@@ -49,14 +48,14 @@ class HoursTab extends Component {
                         <VictoryAxis dependentAxis tickFormat={(x) => (`${x}F`)}/>
                         <VictoryLine data={data} x="hour" y="temp"/>
                     </VictoryChart>
-                    <ShowAll2 />
+                    <ShowAll />
                 </table>
             </div>
         );
     }
 }
 
-class ShowAll2 extends Component {
+class ShowAll extends Component {
     constructor(props) {
         super(props);
         this.close = this.close.bind(this);
@@ -104,4 +103,5 @@ class ShowAll2 extends Component {
     }
 }
 
-export default HoursTab;
+
+export default HumidityTab;
