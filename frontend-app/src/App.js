@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
+// Importing the Sensor widgets
 import TemperatureTab from './widgets/Temperature';
-import HumidityTab from './widgets/Humidity'
+import HumidityTab from './widgets/Humidity';
 import HoursTab from './widgets/BusyHours';
+import CameraTab from './widgets/Camera';
+import LightswitchTab from './widgets/Lightswitch';
+// Importing CSS 
 import './styles/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {Grid, Row, Col} from 'react-bootstrap';
+import Lightswitch from './widgets/Lightswitch';
+
 
 class App extends Component {
   render() {
@@ -17,6 +22,8 @@ class App extends Component {
           <TemperatureTab/>
           <HumidityTab/>
           <HoursTab/>
+          <CameraTab/>
+          <LightswitchTab/>
         </div>
       </div>
     );
