@@ -9,7 +9,7 @@ const int echoPin = 4;
 
 void setup() {
   //DHT 11 Module
-  Serial.begin(250000);
+  Serial.begin(9600);
   Serial.println("Its on");
 }
 
@@ -40,7 +40,10 @@ void loop() {
   cm = microsecondsToCentimeters(duration);
 
   if (inches < 40){
-    Serial.println("Movement sensed");
+    Serial.print("True");
+  }
+  else if ( inches >= 40){
+    Serial.print("False");
   }
 
 //  Serial.print(inches);
@@ -49,15 +52,19 @@ void loop() {
 //  Serial.print("cm");
 //  Serial.println();
 //  
-  delay(100);
   
+  Serial.print(",");
+  Serial.print(69);
 //  //DHT 11 Module
 //  int chk = DHT.read11(DHT11_PIN);
 //  Serial.print("Temperature = ");
 //  Serial.println(DHT.temperature);
+  Serial.print(",");
+  Serial.print(3);
 //  Serial.print("Humidity = ");
 //  Serial.println(DHT.humidity);
-
+delay(1000);
+Serial.println();
 }
 
 long microsecondsToInches(long microseconds)

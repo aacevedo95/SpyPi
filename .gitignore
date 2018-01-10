@@ -1,4 +1,7 @@
 # dependencies
+intermediary-app/node_modules
 frontend-app/node_modules
 backend-app/node_modules
 
+package-lock.json
+*.lock

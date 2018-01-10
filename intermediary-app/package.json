@@ -1,0 +1,12 @@
+{
+  "name": "intermediary-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "serialport": "^6.0.4"
+  }
+}
