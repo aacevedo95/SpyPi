@@ -5,11 +5,9 @@ import HumidityTab from './widgets/Humidity';
 import HoursTab from './widgets/BusyHours';
 import CameraTab from './widgets/Camera';
 import LightswitchTab from './widgets/Lightswitch';
-// Importing CSS 
+// Importing CSS
 import './styles/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Lightswitch from './widgets/Lightswitch';
-
 
 class App extends Component {
   render() {

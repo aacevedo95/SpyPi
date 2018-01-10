@@ -8,19 +8,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var app = express();
 
-var SerialPort = require('serialport');
-var sp = new SerialPort("COM6",{ baudRate: 250000});
-
-// serial port for Arduino comms
-sp.on("open", function () {
-  console.log('Communication is on!');
-
-  // when your app receives data, this event is fired
-  // so you can capture the data and do what you need
-  sp.on('data', function(data) {
-    console.log('data received: ' + data);
-  });
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

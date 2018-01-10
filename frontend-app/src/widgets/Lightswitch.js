@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal} from 'react-bootstrap';
 import '../styles/widgets.css';
-
 
 class LightswitchTab extends Component {
     constructor(props) {
