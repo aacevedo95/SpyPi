@@ -104,9 +104,4 @@ class ShowAll extends Component {
 }
 
 
-<<<<<<< HEAD
-
-export default HumidityView;
-=======
 export default HumidityTab;
->>>>>>> 7c4f15895871b70a0c3042c8302bde2d0d70d2db
