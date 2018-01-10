@@ -1,18 +1,20 @@
-#include <dht.h>
-
-dht DHT;
-
-#define DHT11_PIN 13
+//#include <dht.h>
+//
+//dht DHT;
+//
+//#define DHT11_PIN A0
 
 const int trigPin = 2;
 const int echoPin = 4;
 
 void setup() {
   //DHT 11 Module
-  Serial.begin(9600);
+  Serial.begin(250000);
+  Serial.println("Its on");
 }
 
 void loop() {
+  
   //Ultrasonic Sensor
   // establish variables for duration of the ping, 
   // and the distance result in inches and centimeters:
@@ -36,22 +38,26 @@ void loop() {
   // convert the time into a distance
   inches = microsecondsToInches(duration);
   cm = microsecondsToCentimeters(duration);
-  
-  Serial.print(inches);
-  Serial.print("in, ");
-  Serial.print(cm);
-  Serial.print("cm");
-  Serial.println();
-  
+
+  if (inches < 40){
+    Serial.println("Movement sensed");
+  }
+
+//  Serial.print(inches);
+//  Serial.print("in, ");
+//  Serial.print(cm);
+//  Serial.print("cm");
+//  Serial.println();
+//  
   delay(100);
   
-  //DHT 11 Module
-  int chk = DHT.read11(DHT11_PIN);
-  Serial.print("Temperature = ");
-  Serial.println(DHT.temperature);
-  Serial.print("Humidity = ");
-  Serial.println(DHT.humidity);
-  delay(1000);
+//  //DHT 11 Module
+//  int chk = DHT.read11(DHT11_PIN);
+//  Serial.print("Temperature = ");
+//  Serial.println(DHT.temperature);
+//  Serial.print("Humidity = ");
+//  Serial.println(DHT.humidity);
+
 }
 
 long microsecondsToInches(long microseconds)

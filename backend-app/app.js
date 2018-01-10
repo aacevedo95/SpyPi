@@ -4,25 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var SerialPort = require("serialport").SerialPort
-// var serialPort = new SerialPort("/dev/ttyACM0", {
-//   baudrate: 57600
-// });
-// var index = require('./routes/index');
-// var users = require('./routes/users');
-
-// var app = express();
-
-// // serial port for Arduino comms
-// serialPort.on("open", function () {
-//   console.log('Communication is on!');
-
-//   // when your app receives data, this event is fired
-//   // so you can capture the data and do what you need
-//   serialPort.on('data', function(data) {
-//     console.log('data received: ' + data);
-//   });
-// });
+var index = require('./routes/index');
+var users = require('./routes/users');
+var app = express();
 
 
 // view engine setup

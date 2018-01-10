@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
-import TempView from './widgets/Temperature';
-import HumidityView from './widgets/Humidity';
-import HoursView from './widgets/BusyHours';
+// Importing the Sensor widgets
+import TemperatureTab from './widgets/Temperature';
+import HumidityTab from './widgets/Humidity';
+import HoursTab from './widgets/BusyHours';
+import CameraTab from './widgets/Camera';
+import LightswitchTab from './widgets/Lightswitch';
+// Importing CSS
 import './styles/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,9 +17,11 @@ class App extends Component {
           <h1 className="App-title">SpyPi Dashboard</h1>
         </header>
         <div className='container'>
-          <TempView/>
-          <HumidityView/>
-          <HoursView/>
+          <TemperatureTab/>
+          <HumidityTab/>
+          <HoursTab/>
+          <CameraTab/>
+          <LightswitchTab/>
         </div>
       </div>
     );

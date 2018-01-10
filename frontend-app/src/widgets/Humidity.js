@@ -19,7 +19,7 @@ const data = [
     }
 ];
 
-class HumidityView extends Component {
+class HumidityTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,7 +54,6 @@ class HumidityView extends Component {
         );
     }
 }
-
 
 class ShowAll extends Component {
     constructor(props) {
@@ -105,5 +104,9 @@ class ShowAll extends Component {
 }
 
 
+<<<<<<< HEAD
 
 export default HumidityView;
+=======
+export default HumidityTab;
+>>>>>>> 7c4f15895871b70a0c3042c8302bde2d0d70d2db
