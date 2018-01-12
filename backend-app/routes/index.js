@@ -3,11 +3,13 @@ var axios = require('axios');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.send('juan is my daddy');
+  res.send('data');
 });
 
-router.get('/data', function(req, res) {
-  res.post();
+router.post('/data', function(req, res) {
+  const arr = req.body.data.split(',')
+  
+  res.json(arr);
 });
 
 module.exports = router;
