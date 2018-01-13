@@ -1,5 +1,6 @@
 const SerialPort = require('serialport');
-const sp = new SerialPort("COM6",{ baudRate: 250000});
+const axios = require('axios');
+const sp = new SerialPort("COM3",{ baudRate: 250000});
 
 // serial port for Arduino comms
 sp.on("open",  () => {

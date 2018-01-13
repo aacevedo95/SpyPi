@@ -11,7 +11,7 @@ var app = express();
 
 // mongoose db
 const connString = JSON.parse(fs.readFileSync('private.json')).connString
-mongoose.connect('mongodb://localhost:4000/data');
+mongoose.connect(connString, {useMongoClient: true});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
