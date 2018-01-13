@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-
 // Here ill have the time, temo, humidity, and movement 
 var arDataSchema = mongoose.Schema({
     movementSensed: Boolean,
     temperature: Number,
-    humidity: Number
+    humidity: Number,
+    timeStamp: Date
   });
   
 

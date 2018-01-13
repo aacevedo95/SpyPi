@@ -1,21 +1,27 @@
+const Buffer = require('buffer')
 const SerialPort = require('serialport');
 const axios = require('axios');
 const sp = new SerialPort("COM3", {
-  baudRate: 250000
+  baudRate: 9600
 });
 
-// serial port for Arduino comms
-sp.on("open", () => {
-  console.log('Communication is on!');
+let buf = new Buffer.Buffer('', 'utf8')
 
-  // when your app receives data, this event is fired
-  // so you can capture the data and do what you need
+sp.on("open", () => {
+  console.log('arduino detected');
   sp.on('data', (data) => {
-    axios.post('http://localhost:4000/data', {
-      data: data.toString('utf8')
-    }).then(e => {
-      console.log(e)
-    }).catch(err => (console.log(err)));
+    buf = Buffer.Buffer.concat([buf, data]);
+    const str = buf.toString()
+    const idx = str.indexOf('\n')
+    if (idx !== -1) {
+      const d = str.substr(0, idx).trim()
+      console.log(d)
+      buf = buf.subarray(idx + 1, buf.length)
+      axios.post('http://localhost:4000/data', {
+        data: d
+      }).catch(err => (console.log(err)));
+    } else {
+      console.log('waiting for next piece of data')
+    }
   });
-  
 });
