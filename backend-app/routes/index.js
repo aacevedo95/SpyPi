@@ -8,7 +8,6 @@ router.get('/', function(req, res) {
 
 router.post('/data', function(req, res) {
   const arr = req.body.data.split(',')
-  
   res.json(arr);
 });
 
