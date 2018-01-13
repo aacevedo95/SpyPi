@@ -1,12 +1,12 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var index = require('./routes/index');
-var mongoose = require('mongoose');
-var fs = require('fs')
-var app = express();
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const index = require('./routes/index');
+const mongoose = require('mongoose');
+const fs = require('fs')
+const app = express();
 
 
 // mongoose db
@@ -17,36 +17,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   // we're connected!
-});
-
-// Here ill have the time, temo, humidity, and movement 
-var kittySchema = mongoose.Schema({
-  name: String
-});
-
-// function that returns the .name of each model(?)
-kittySchema.methods.speak = function () {
-  var greeting = this.name ?
-    "Meow name is " + this.name :
-    "I don't have a name";
-  console.log(greeting);
-}
-
-var Kitten = mongoose.model('Kitten', kittySchema);
-
-var silence = new Kitten({
-  name: 'Silence'
-});
-var fluffy = new Kitten({
-  name: 'fluffy'
-});
-
-console.log(silence.name); // 'Silence'
-fluffy.speak(); // "Meow name is fluffy"
-
-fluffy.save(function (err, fluffy) {
-  if (err) return console.error(err);
-  fluffy.speak();
 });
 
 // express
@@ -76,7 +46,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err);
 });
 
 module.exports = app;

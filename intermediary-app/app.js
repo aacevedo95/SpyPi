@@ -11,11 +11,11 @@ sp.on("open", () => {
   // when your app receives data, this event is fired
   // so you can capture the data and do what you need
   sp.on('data', (data) => {
-    console.log('data received: ' + data);
     axios.post('http://localhost:4000/data', {
-      data
+      data: data.toString('utf8')
     }).then(e => {
       console.log(e)
     }).catch(err => (console.log(err)));
   });
+  
 });

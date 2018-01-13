@@ -9,7 +9,7 @@ const int echoPin = 4;
 
 void setup() {
   //DHT 11 Module
-  Serial.begin(9600);
+  Serial.begin(250000);
   Serial.println("Its on");
 }
 
