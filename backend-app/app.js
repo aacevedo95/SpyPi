@@ -7,11 +7,13 @@ const index = require('./routes/index');
 const mongoose = require('mongoose');
 const fs = require('fs')
 const app = express();
-
+var cors = require('cors')
 
 // mongoose db
 const connString = JSON.parse(fs.readFileSync('private.json')).connString
-mongoose.connect(connString, {useMongoClient: true});
+mongoose.connect(connString, {
+  useMongoClient: true
+});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -20,6 +22,7 @@ db.once('open', function () {
 });
 
 // express
+app.use(cors())
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

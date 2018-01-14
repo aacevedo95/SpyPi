@@ -1,15 +1,15 @@
 const express = require('express');
 const axios = require('axios');
-const router = express.Router();
 const ArData = require('../models/arData');
+const router = express.Router();
 
-router.get('/data', function(req, res) {
-  ArData.find((err, data) => {
+router.get('/data', function (req, res) {
+  ArData.find().limit(50).exec((err, data) => {
     res.json(data);
   });
 });
 
-router.post('/data', function(req, res) {
+router.post('/data', function (req, res) {
   const d = new ArData();
   const data = req.body.data.split(',')
 
@@ -19,9 +19,8 @@ router.post('/data', function(req, res) {
   d.timeStamp = new Date();
 
   d.save((err, ardata) => {
-    if ( err ) return console.error(err);
+    if (err) return console.error(err);
   });
-
   res.send(true);
 });
 
