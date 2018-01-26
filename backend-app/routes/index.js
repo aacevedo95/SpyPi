@@ -1,31 +1,27 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const axios = require('axios');
+const ArData = require('../models/arData');
+const router = express.Router();
 
-var SerialPort = require('serialport');
-var sp = new SerialPort("COM6",{ baudRate: 250000});
-// serial port for Arduino comms
-sp.on("open", function () {
-  console.log('Communication is on!');
-
-  // when your app receives data, this event is fired
-  // so you can capture the data and do what you need
-  sp.on('data', function(data) {
-    console.log('data received: ' + data);
+router.get('/data', function (req, res) {
+  ArData.find().limit(50).exec((err, data) => {
+    res.json(data);
   });
 });
 
+router.post('/data', function (req, res) {
+  const d = new ArData();
+  const data = req.body.data.split(',')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home page', x : '1' });
-});
+  d.movementSensed = data[0]
+  d.temperature = data[1]
+  d.humidity = data[2]
+  d.timeStamp = new Date();
 
-router.get('/t', (req,res,next) => {
-  res.render('index', {title: 'User page', x: '4',  ardData : data })
-});
-
-router.post('/', (req, res) => {
-  res.send("post_sent");
+  d.save((err, ardata) => {
+    if (err) return console.error(err);
+  });
+  res.send(true);
 });
 
 module.exports = router;

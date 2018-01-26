@@ -1,4 +1,9 @@
 # dependencies
+intermediary-app/node_modules
 frontend-app/node_modules
 backend-app/node_modules
 
+backend-app/private.json
+
+package-lock.json
+*.lock
