@@ -3,54 +3,65 @@ import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 import { Button, Modal } from "react-bootstrap";
 import "../styles/widgets.css";
 
-const data = [
-  {
-    hour: 1,
-    temp: 78
-  },
-  {
-    hour: 2,
-    temp: 80
-  },
-  {
-    hour: 3,
-    temp: 76
-  },
-  {
-    hour: 4,
-    temp: 82
-  }
-];
 class TemperatureTab extends Component {
   constructor(props) {
     super(props);
+    this._msToTime.bind(this);
     this.state = {
-      currTemp: "0",
-      maxTemp: "100",
-      minTemp: "-100",
-      avgTemp: "50"
+      currTemp,
+      maxTemp,
+      minTemp,
+      avgTemp
     };
   }
-  render() {
 
+  componentDidMount() {
+      this.setState({
+        data: this.getData()
+      });
+  }
+
+  getState(){
+    if (this.props.list && this.props.list.length !== 0) {
+
+    }
+  }
+
+  _msToTime(duration) {
+    var seconds = parseInt((duration/1000)%60, 10)
+        , minutes = parseInt((duration/(1000*60))%60,10)
+        , hours = parseInt((duration/(1000*60*60))%24,10);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" +seconds;
+  }
+  
+  render() {
     let firstDate = "";
     let secondDate = "";
-    let lastDate = "";
+    let thirdDate = "";
+    let fourthDate = "";
 
     if (this.props.list && this.props.list.length !== 0) {
       const first = this.props.list[0];
-      const middle = this.props.list[this.props.list.length / 2];
-      const last = this.props.list[this.props.list.length - 1];
-
-      firstDate = new Date(first.timeStamp).toDateString();
-      secondDate = new Date(middle.timeStamp).toDateString();
-      lastDate = new Date(last.timeStamp).toDateString();
+      const second = this.props.list[19];
+      const third = this.props.list[29];
+      const fourth = this.props.list[this.props.list.length - 1];
+      
+      firstDate = this._msToTime(new Date(first.timeStamp).getTime());
+      secondDate = this._msToTime(new Date(second.timeStamp).getTime());
+      thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
+      fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
     }
 
+    
+    
     return (
       <div className="tableStyle">
         <table>
-          <p>{firstDate}</p>
           <h1>Temperature View</h1>
           <p>Current Temperature: {this.state.currTemp}</p>
           <p>Minimum Temperature: {this.state.minTemp}</p>
@@ -61,11 +72,12 @@ class TemperatureTab extends Component {
             domainPadding={20}
           >
             <VictoryAxis
-              tickValues={[1, 25, 50]}
-              tickFormat={[firstDate, secondDate, lastDate]}
+              tickCount = {3}
+              tickValues={[ 1,20,30,50]}
+              tickFormat={[firstDate, secondDate, thirdDate, fourthDate]}
             />
             <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
-            <VictoryLine data={this.props.list} x="hours" y="temperature" />
+            <VictoryLine style={{data: { stroke: "#c43a31" }, parent: { border: "1px solid #ccc"}}} data={this.props.list} x="timeStamp" y="temperature" />
           </VictoryChart>
           <ShowAll />
         </table>

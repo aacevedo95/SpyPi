@@ -4,7 +4,7 @@ const ArData = require('../models/arData');
 const router = express.Router();
 
 router.get('/data', function (req, res) {
-  ArData.find().limit(50).exec((err, data) => {
+  ArData.find().sort({_id:-1}).limit(50).exec((err, data) => {
     res.json(data);
   });
 });
