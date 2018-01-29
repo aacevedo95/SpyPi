@@ -41,19 +41,20 @@ class HumidityTab extends Component {
           <p>Minimum Humidity: {this.state.minhumid}</p>
           <p>Maximum Humidity: {this.state.maxHumid}</p>
           <p>Average Humidity: {this.state.avgHumid}</p>
+
+          <VictoryChart // adding the material theme provided with Victory
+            theme={VictoryTheme.material}
+            domainPadding={20}
+          >
+            <VictoryAxis
+              tickValues={[1, 2, 3, 4]}
+              tickFormat={["1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM"]}
+            />
+            <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
+            <VictoryLine data={data} x="hour" y="temp" />
+          </VictoryChart>
+          <ShowAll />
         </div>
-        <VictoryChart // adding the material theme provided with Victory
-          theme={VictoryTheme.material}
-          domainPadding={20}
-        >
-          <VictoryAxis
-            tickValues={[1, 2, 3, 4]}
-            tickFormat={["1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM"]}
-          />
-          <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
-          <VictoryLine data={data} x="hour" y="temp" />
-        </VictoryChart>
-        <ShowAll />
       </div>
     );
   }

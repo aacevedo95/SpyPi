@@ -41,19 +41,20 @@ class HoursTab extends Component {
           <p>Average Busy Hour: {this.state.avgBusyHour}</p>
           <p>Most Busy Hour: {this.state.mostBusyHour}</p>
           <p>Least Busy Hour: {this.state.leastBusyHour}</p>
+
+          <VictoryChart // adding the material theme provided with Victory
+            theme={VictoryTheme.material}
+            domainPadding={20}
+          >
+            <VictoryAxis
+              tickValues={[1, 2, 3, 4]}
+              tickFormat={["1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM"]}
+            />
+            <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
+            <VictoryLine data={data} x="hour" y="temp" />
+          </VictoryChart>
+          <ShowAll2 />
         </div>
-        <VictoryChart // adding the material theme provided with Victory
-          theme={VictoryTheme.material}
-          domainPadding={20}
-        >
-          <VictoryAxis
-            tickValues={[1, 2, 3, 4]}
-            tickFormat={["1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM"]}
-          />
-          <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
-          <VictoryLine data={data} x="hour" y="temp" />
-        </VictoryChart>
-        <ShowAll2 />
       </div>
     );
   }
