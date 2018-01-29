@@ -7,38 +7,47 @@ class TemperatureTab extends Component {
   constructor(props) {
     super(props);
     this._msToTime.bind(this);
+    this._getTemp.bind(this);
     this.state = {
-      currTemp,
-      maxTemp,
-      minTemp,
-      avgTemp
+      currTemp: this._getTemp(),
+      maxTemp: this._getTemp(),
+      minTemp: this._getTemp(),
+      avgTemp: this._getTemp()
     };
   }
 
-  componentDidMount() {
-      this.setState({
-        data: this.getData()
-      });
-  }
+  // componentDidMount() {
+  //     this.setState({
+  //     currTemp:  this.props.list[0].temperature,
+  //     maxTemp : this.props.list[1].temperature,
+  //     minTemp: this.props.list[2].temperature,
+  //     avgTemp: this.props.list[3].temperature
+  //     });
+  // }
 
-  getState(){
+  _getTemp() {
+    const propVar = this.props.list;
     if (this.props.list && this.props.list.length !== 0) {
-
+      this.setState({
+        currTemp: propVar[50].temperature
+      });
+      console.log("Inside if in _getTemp()");
     }
+    console.log("Inside _getTemp()");
   }
 
   _msToTime(duration) {
-    var seconds = parseInt((duration/1000)%60, 10)
-        , minutes = parseInt((duration/(1000*60))%60,10)
-        , hours = parseInt((duration/(1000*60*60))%24,10);
+    var seconds = parseInt((duration / 1000) % 60, 10),
+      minutes = parseInt((duration / (1000 * 60)) % 60, 10),
+      hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
 
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    return hours + ":" + minutes + ":" +seconds;
+    return hours + ":" + minutes + ":" + seconds;
   }
-  
+
   render() {
     let firstDate = "";
     let secondDate = "";
@@ -50,37 +59,43 @@ class TemperatureTab extends Component {
       const second = this.props.list[19];
       const third = this.props.list[29];
       const fourth = this.props.list[this.props.list.length - 1];
-      
+
       firstDate = this._msToTime(new Date(first.timeStamp).getTime());
       secondDate = this._msToTime(new Date(second.timeStamp).getTime());
       thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
       fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
     }
 
-    
-    
     return (
       <div className="tableStyle">
-        <table>
+        <div>
           <h1>Temperature View</h1>
           <p>Current Temperature: {this.state.currTemp}</p>
-          <p>Minimum Temperature: {this.state.minTemp}</p>
-          <p>Maximum Temperature: {this.state.maxTemp}</p>
-          <p>Average Temperature: {this.state.avgTemp}</p>
+          <p>Minimum Temperature: this.state.minTemp}</p>
+          <p>Maximum Temperature: this.state.maxTemp}</p>
+          <p>Average Temperature: this.state.avgTemp}</p>
           <VictoryChart // adding the material theme provided with Victory
             theme={VictoryTheme.material}
             domainPadding={20}
           >
             <VictoryAxis
-              tickCount = {3}
-              tickValues={[ 1,20,30,50]}
+              tickCount={3}
+              tickValues={[1, 20, 30, 50]}
               tickFormat={[firstDate, secondDate, thirdDate, fourthDate]}
             />
             <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
-            <VictoryLine style={{data: { stroke: "#c43a31" }, parent: { border: "1px solid #ccc"}}} data={this.props.list} x="timeStamp" y="temperature" />
+            <VictoryLine
+              style={{
+                data: { stroke: "#c43a31" },
+                parent: { border: "1px solid #ccc" }
+              }}
+              data={this.props.list}
+              x="timeStamp"
+              y="temperature"
+            />
           </VictoryChart>
           <ShowAll />
-        </table>
+        </div>
       </div>
     );
   }
