@@ -54,6 +54,10 @@ class TemperatureTab extends Component {
     let thirdDate = "";
     let fourthDate = "";
 
+    let fourthTemp = "";
+    let thirdTemp = "";
+    let secondTemp = "";
+    let firstTemp = "";
     if (this.props.list && this.props.list.length !== 0) {
       const first = this.props.list[0];
       const second = this.props.list[19];
@@ -64,6 +68,11 @@ class TemperatureTab extends Component {
       secondDate = this._msToTime(new Date(second.timeStamp).getTime());
       thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
       fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
+
+      firstTemp = first.temperature;
+      secondTemp = second.temperature;
+      thirdTemp = third.temperature;
+      fourthTemp = fourth.temperature;
     }
 
     return (
@@ -81,7 +90,7 @@ class TemperatureTab extends Component {
             <VictoryAxis
               tickCount={3}
               tickValues={[1, 20, 30, 50]}
-              tickFormat={[firstDate, secondDate, thirdDate, fourthDate]}
+              tickFormat={[fourthDate, thirdDate, secondDate, firstDate]}
             />
             <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
             <VictoryLine
