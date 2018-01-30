@@ -6,34 +6,54 @@ import "../styles/widgets.css";
 class TemperatureTab extends Component {
   constructor(props) {
     super(props);
-    this._msToTime.bind(this);
-    this._getTemp.bind(this);
+
     this.state = {
-      currTemp: this._getTemp(),
-      maxTemp: this._getTemp(),
-      minTemp: this._getTemp(),
-      avgTemp: this._getTemp()
+      currTemp: this._getCurr(),
+      maxTemp: this._getMax(),
+      minTemp: this._getMin(),
+      avgTemp: this._getAvg()
     };
   }
 
-  // componentDidMount() {
-  //     this.setState({
-  //     currTemp:  this.props.list[0].temperature,
-  //     maxTemp : this.props.list[1].temperature,
-  //     minTemp: this.props.list[2].temperature,
-  //     avgTemp: this.props.list[3].temperature
-  //     });
-  // }
+  componentDidMount() {
+    this.setState({
+      currTemp: this._getCurr(),
+      maxTemp: this._getMax(),
+      minTemp: this._getMin(),
+      avgTemp: this._getAvg()
+    });
+  }
 
-  _getTemp() {
-    const propVar = this.props.list;
+  _getCurr(){
     if (this.props.list && this.props.list.length !== 0) {
-      this.setState({
-        currTemp: propVar[50].temperature
-      });
-      console.log("Inside if in _getTemp()");
+      const valList = this.props.list[this.props.list.length - 1];
+      let curr = valList.temperature;
+      return curr;
+    }    
+  }
+  _getMax(){
+    if (this.props.list && this.props.list.length !== 0) {
+      const valList = this.props.list;
+      const tempList = valList.map(x => x.temperature);
+      return Math.max(...tempList); 
     }
-    console.log("Inside _getTemp()");
+  }
+
+  _getMin(){
+    if (this.props.list && this.props.list.length !== 0) {
+      const valList = this.props.list;
+      const tempList = valList.map(x => x.temperature);
+      return Math.min(...tempList);
+    }
+  }
+  _getAvg(){
+    if (this.props.list && this.props.list.length !== 0) {
+      const valList = this.props.list;
+      const tempList = valList.map(x => x.temperature);
+      var sum = tempList.reduce((a, b) => a + b, 0);
+      var avg = Math.round( sum / (valList.length-1));
+      return avg;
+    }
   }
 
   _msToTime(duration) {
@@ -54,10 +74,6 @@ class TemperatureTab extends Component {
     let thirdDate = "";
     let fourthDate = "";
 
-    let fourthTemp = "";
-    let thirdTemp = "";
-    let secondTemp = "";
-    let firstTemp = "";
     if (this.props.list && this.props.list.length !== 0) {
       const first = this.props.list[0];
       const second = this.props.list[19];
@@ -68,21 +84,17 @@ class TemperatureTab extends Component {
       secondDate = this._msToTime(new Date(second.timeStamp).getTime());
       thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
       fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
-
-      firstTemp = first.temperature;
-      secondTemp = second.temperature;
-      thirdTemp = third.temperature;
-      fourthTemp = fourth.temperature;
     }
+
 
     return (
       <div className="tableStyle">
         <div>
-          <h1>Temperature View</h1>
+          <h1>Temperature</h1>
           <p>Current Temperature: {this.state.currTemp}</p>
-          <p>Minimum Temperature: this.state.minTemp}</p>
-          <p>Maximum Temperature: this.state.maxTemp}</p>
-          <p>Average Temperature: this.state.avgTemp}</p>
+          <p>Minimum Temperature: {this.state.minTemp}</p>
+          <p>Maximum Temperature: {this.state.maxTemp}</p>
+          <p>Average Temperature: {this.state.avgTemp}</p>
           <VictoryChart // adding the material theme provided with Victory
             theme={VictoryTheme.material}
             domainPadding={20}
@@ -90,7 +102,7 @@ class TemperatureTab extends Component {
             <VictoryAxis
               tickCount={3}
               tickValues={[1, 20, 30, 50]}
-              tickFormat={[fourthDate, thirdDate, secondDate, firstDate]}
+              tickFormat={[firstDate, secondDate, thirdDate, fourthDate]}
             />
             <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
             <VictoryLine

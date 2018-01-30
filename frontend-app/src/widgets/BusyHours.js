@@ -32,7 +32,37 @@ class HoursTab extends Component {
       leastBusyHour: "50"
     };
   }
+
+  _msToTime(duration) {
+    var seconds = parseInt((duration / 1000) % 60, 10),
+      minutes = parseInt((duration / (1000 * 60)) % 60, 10),
+      hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
+
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds;
+  }
+  
   render() {
+    let firstDate = "";
+    let secondDate = "";
+    let thirdDate = "";
+    let fourthDate = "";
+
+    if (this.props.list && this.props.list.length !== 0) {
+      const first = this.props.list[0];
+      const second = this.props.list[19];
+      const third = this.props.list[29];
+      const fourth = this.props.list[this.props.list.length - 1];
+
+      firstDate = this._msToTime(new Date(first.timeStamp).getTime());
+      secondDate = this._msToTime(new Date(second.timeStamp).getTime());
+      thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
+      fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
+    }
+
     return (
       <div className="tableStyle">
         <div>
@@ -47,11 +77,20 @@ class HoursTab extends Component {
             domainPadding={20}
           >
             <VictoryAxis
-              tickValues={[1, 2, 3, 4]}
-              tickFormat={["1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM"]}
+              tickCount={3}
+              tickValues={[1, 20, 30, 50]}
+              tickFormat={[firstDate, secondDate, thirdDate, fourthDate]}
             />
-            <VictoryAxis dependentAxis tickFormat={x => `${x}F`} />
-            <VictoryLine data={data} x="hour" y="temp" />
+            <VictoryAxis dependentAxis tickFormat={['True']} />
+            <VictoryLine
+              style={{
+                data: { stroke: "#c43a31" },
+                parent: { border: "1px solid #ccc" }
+              }}
+              data={this.props.list}
+              x="timeStamp"
+              y="movementSensed"
+            />
           </VictoryChart>
           <ShowAll2 />
         </div>
