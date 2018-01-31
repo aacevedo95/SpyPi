@@ -1,14 +1,12 @@
 import React, { Component } from "react";
+import { Button } from 'react-bootstrap';
 import "../styles/widgets.css";
 
 class LightswitchTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currTemp: "0",
-      maxTemp: "100",
-      minTemp: "-100",
-      avgTemp: "50"
+      lightOn : false
     };
   }
   render() {

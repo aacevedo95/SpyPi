@@ -8,10 +8,10 @@ class TemperatureTab extends Component {
     super(props);
 
     this.state = {
-      currTemp: this._getCurr(),
-      maxTemp: this._getMax(),
-      minTemp: this._getMin(),
-      avgTemp: this._getAvg()
+      currTemp: 0,
+      maxTemp: 0,
+      minTemp: 0,
+      avgTemp: 0
     };
   }
 
@@ -29,7 +29,7 @@ class TemperatureTab extends Component {
       const valList = this.props.list[this.props.list.length - 1];
       let curr = valList.temperature;
       return curr;
-    }    
+    }
   }
   _getMax(){
     if (this.props.list && this.props.list.length !== 0) {

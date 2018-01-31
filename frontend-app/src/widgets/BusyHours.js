@@ -3,45 +3,30 @@ import "../styles/widgets.css";
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 import { Button, Modal } from "react-bootstrap";
 
-const data = [
-  {
-    hour: 1,
-    temp: 78
-  },
-  {
-    hour: 2,
-    temp: 80
-  },
-  {
-    hour: 3,
-    temp: 76
-  },
-  {
-    hour: 4,
-    temp: 82
-  }
-];
-
 class HoursTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      curBusyHour: "0",
-      avgBusyHour: "100",
-      mostBusyHour: "-100",
-      leastBusyHour: "50"
+      avgBusyHour: "19:20",
+      mostBusyHour: "22:39",
+      leastBusyHour: "10:00"
     };
+  }
+
+
+  _calcBusyHour(hour){
+    console.log(hour);
   }
 
   _msToTime(duration) {
     var seconds = parseInt((duration / 1000) % 60, 10),
       minutes = parseInt((duration / (1000 * 60)) % 60, 10),
       hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
-
     hours = hours < 10 ? "0" + hours : hours;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
+    this._calcBusyHour(hours);    
     return hours + ":" + minutes + ":" + seconds;
   }
   
@@ -69,7 +54,6 @@ class HoursTab extends Component {
           <h1>Busy Hours</h1>
           <p>Busiest Hour: {this.state.curBusyHour}</p>
           <p>Average Busy Hour: {this.state.avgBusyHour}</p>
-          <p>Most Busy Hour: {this.state.mostBusyHour}</p>
           <p>Least Busy Hour: {this.state.leastBusyHour}</p>
 
           <VictoryChart // adding the material theme provided with Victory

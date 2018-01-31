@@ -79,7 +79,7 @@ class HumidityTab extends Component {
     return (
       <div className="tableStyle">
         <div>
-          <h1>Humidity View</h1>
+          <h1>Humidity</h1>
           <p>Current Humidity: {this.state.currHumid}</p>
           <p>Minimum Humidity: {this.state.minhumid}</p>
           <p>Maximum Humidity: {this.state.maxHumid}</p>
