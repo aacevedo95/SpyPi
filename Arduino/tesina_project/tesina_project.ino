@@ -33,23 +33,18 @@ void loop() {
 
   // convert the time into a distance
   inches = microsecondsToInches(duration);
-  
-  String resp = inches < 40 ? "True" : "False";
-  Serial.println( resp + "," + 69 + "," + 3);
-
-//  Serial.print(inches);
-//  Serial.print("in, ");
-//  Serial.print(cm);
-//  Serial.print("cm");
-//  Serial.println();
-
 //  //DHT 11 Module
 //  int chk = DHT.read11(DHT11_PIN);
 //  Serial.print("Temperature = ");
 //  Serial.println(DHT.temperature);
-
 //  Serial.print("Humidity = ");
 //  Serial.println(DHT.humidity);
+
+
+  String resp = inches < 40 ? "True" : "False";
+  Serial.println( resp + "," + 69 + "," + 3);
+ // Serial.println( resp + "," + DHT.temperature + "," + DHT.humidity); <- what it will look like
+
 delay(1000);
 }
 
