@@ -5,9 +5,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const mongoose = require('mongoose');
-const fs = require('fs')
+const fs = require('fs');
 const app = express();
-var cors = require('cors')
+const cors = require('cors');
 
 // mongoose db
 const connString = JSON.parse(fs.readFileSync('private.json')).connString

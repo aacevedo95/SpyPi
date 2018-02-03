@@ -15,40 +15,40 @@ class TemperatureTab extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(next) {
     this.setState({
-      currTemp: this._getCurr(),
-      maxTemp: this._getMax(),
-      minTemp: this._getMin(),
-      avgTemp: this._getAvg()
+      currTemp: this.getCurr(next),
+      maxTemp: this.getMax(next),
+      minTemp: this.getMin(next),
+      avgTemp: this.getAvg(next)
     });
   }
 
-  _getCurr(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list[this.props.list.length - 1];
+  getCurr = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list[next.list.length - 1];
       let curr = valList.temperature;
       return curr;
     }
   }
-  _getMax(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list;
+  getMax = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list;
       const tempList = valList.map(x => x.temperature);
       return Math.max(...tempList); 
     }
   }
 
-  _getMin(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list;
+  getMin = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list;
       const tempList = valList.map(x => x.temperature);
       return Math.min(...tempList);
     }
   }
-  _getAvg(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list;
+  getAvg = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list;
       const tempList = valList.map(x => x.temperature);
       var sum = tempList.reduce((a, b) => a + b, 0);
       var avg = Math.round( sum / (valList.length-1));
@@ -56,7 +56,7 @@ class TemperatureTab extends Component {
     }
   }
 
-  _msToTime(duration) {
+  msToTime(duration) {
     var seconds = parseInt((duration / 1000) % 60, 10),
       minutes = parseInt((duration / (1000 * 60)) % 60, 10),
       hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
@@ -80,10 +80,10 @@ class TemperatureTab extends Component {
       const third = this.props.list[29];
       const fourth = this.props.list[this.props.list.length - 1];
 
-      firstDate = this._msToTime(new Date(first.timeStamp).getTime());
-      secondDate = this._msToTime(new Date(second.timeStamp).getTime());
-      thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
-      fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
+      firstDate = this.msToTime(new Date(first.timeStamp).getTime());
+      secondDate = this.msToTime(new Date(second.timeStamp).getTime());
+      thirdDate = this.msToTime(new Date(third.timeStamp).getTime());
+      fourthDate = this.msToTime(new Date(fourth.timeStamp).getTime());
     }
 
 

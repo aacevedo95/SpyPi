@@ -2,23 +2,44 @@ import React, { Component } from "react";
 import "../styles/widgets.css";
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 import { Button, Modal } from "react-bootstrap";
+const moment = require('moment');
 
 class HoursTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      avgBusyHour: "19:20",
-      mostBusyHour: "22:39",
-      leastBusyHour: "10:00"
+      mostBusyHour: "00:00",
+      leastBusyHour: "00:00"
     };
   }
 
 
-  _calcBusyHour(hour){
-    console.log(hour);
+  componentWillReceiveProps(next) {
+    const map = new Map();
+    next.list.forEach(element => {
+      const hour =  moment(element.timeStamp).local().get('hour');
+      map.set(hour, map.get(hour) ? map.get(hour) + 1 : 1);
+    });
+    map.forEach((key, val) => {
+
+    });
+
+    this.setState({
+      mostBusyHour: this.getCurr(next),
+      leastBusyHour: this.getMax(next)
+    });
+
   }
 
-  _msToTime(duration) {
+  mostHour(hour){
+    
+  }
+
+  leastHour(hour){
+
+  }
+
+  msToTime(duration) {
     var seconds = parseInt((duration / 1000) % 60, 10),
       minutes = parseInt((duration / (1000 * 60)) % 60, 10),
       hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
@@ -26,7 +47,7 @@ class HoursTab extends Component {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    this._calcBusyHour(hours);    
+    this.calcBusyHour(hours);    
     return hours + ":" + minutes + ":" + seconds;
   }
   
@@ -41,11 +62,20 @@ class HoursTab extends Component {
       const second = this.props.list[19];
       const third = this.props.list[29];
       const fourth = this.props.list[this.props.list.length - 1];
+      
+    console.log('Moment below')
+    console.log(moment(fourth.timeStamp).get('hour'));
+    console.log(moment(fourth.timeStamp).local().get('minute'));
+    console.log(moment(fourth.timeStamp).local().get('second'));
+    
+    console.log('func below');
+    console.log(this.msToTime(new Date(fourth.timeStamp).getTime()));
+      
 
-      firstDate = this._msToTime(new Date(first.timeStamp).getTime());
-      secondDate = this._msToTime(new Date(second.timeStamp).getTime());
-      thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
-      fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
+      firstDate = this.msToTime(new Date(first.timeStamp).getTime());
+      secondDate = this.msToTime(new Date(second.timeStamp).getTime());
+      thirdDate = this.msToTime(new Date(third.timeStamp).getTime());
+      fourthDate = this.msToTime(new Date(fourth.timeStamp).getTime());
     }
 
     return (
@@ -53,7 +83,6 @@ class HoursTab extends Component {
         <div>
           <h1>Busy Hours</h1>
           <p>Busiest Hour: {this.state.curBusyHour}</p>
-          <p>Average Busy Hour: {this.state.avgBusyHour}</p>
           <p>Least Busy Hour: {this.state.leastBusyHour}</p>
 
           <VictoryChart // adding the material theme provided with Victory
@@ -76,14 +105,14 @@ class HoursTab extends Component {
               y="movementSensed"
             />
           </VictoryChart>
-          <ShowAll2 />
+          <ShowAll />
         </div>
       </div>
     );
   }
 }
 
-class ShowAll2 extends Component {
+class ShowAll extends Component {
   constructor(props) {
     super(props);
     this.close = this.close.bind(this);

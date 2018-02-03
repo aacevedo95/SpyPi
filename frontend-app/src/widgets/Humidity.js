@@ -9,44 +9,51 @@ class HumidityTab extends Component {
     this.state = {
       currHumid: "0",
       minHumid: "0",
-      maxHumid: "100",
-      avgHumid: "50"
+      maxHumid: "0",
+      avgHumid: "0"
     };
   }
 
+  componentWillReceiveProps(next) {
+    this.setState({
+      currHumid: this.getCurr(next),
+      maxHumid: this.getMax(next),
+      minHumid: this.getMin(next),
+      avgHumid: this.getAvg(next)
+    });
+  }
 
-  _getCurr(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list[this.props.list.length - 1];
+  getCurr = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list[next.list.length - 1];
       let curr = valList.humidity;
       return curr;
     }    
   }
-  _getMax(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list;
-      var humidList = valList.map(x => x.temperature);
+  getMax = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list;
+      var humidList = valList.map(x => x.humidity);
       return Math.max(...humidList); 
     }
   }
-
-  _getMin(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list;
+  getMin = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list;
       var humidList = valList.map(x => x.humidity);
       return Math.min(...humidList);
     }
   }
-  _getAvg(){
-    if (this.props.list && this.props.list.length !== 0) {
-      const valList = this.props.list;
+  getAvg = next => {
+    if (next.list && next.list.length !== 0) {
+      const valList = next.list;
       var humidList = valList.map(x => x.humidity);
       var sum = humidList.reduce((a, b) => a + b, 0);
       var avg = Math.round( sum / (valList.length-1));
       return avg;
     }
   }
-  _msToTime(duration) {
+  msToTime(duration) {
     var seconds = parseInt((duration / 1000) % 60, 10),
       minutes = parseInt((duration / (1000 * 60)) % 60, 10),
       hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
@@ -70,10 +77,10 @@ class HumidityTab extends Component {
       const third = this.props.list[29];
       const fourth = this.props.list[this.props.list.length - 1];
 
-      firstDate = this._msToTime(new Date(first.timeStamp).getTime());
-      secondDate = this._msToTime(new Date(second.timeStamp).getTime());
-      thirdDate = this._msToTime(new Date(third.timeStamp).getTime());
-      fourthDate = this._msToTime(new Date(fourth.timeStamp).getTime());
+      firstDate = this.msToTime(new Date(first.timeStamp).getTime());
+      secondDate = this.msToTime(new Date(second.timeStamp).getTime());
+      thirdDate = this.msToTime(new Date(third.timeStamp).getTime());
+      fourthDate = this.msToTime(new Date(fourth.timeStamp).getTime());
     }
 
     return (
@@ -81,7 +88,7 @@ class HumidityTab extends Component {
         <div>
           <h1>Humidity</h1>
           <p>Current Humidity: {this.state.currHumid}</p>
-          <p>Minimum Humidity: {this.state.minhumid}</p>
+          <p>Minimum Humidity: {this.state.minHumid}</p>
           <p>Maximum Humidity: {this.state.maxHumid}</p>
           <p>Average Humidity: {this.state.avgHumid}</p>
 

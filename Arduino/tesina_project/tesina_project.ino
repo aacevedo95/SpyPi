@@ -1,6 +1,6 @@
-// #include <dht.h>
-// dht DHT;
-// #define DHT11_PIN 7
+ #include <dht.h>
+ dht DHT;
+ #define DHT11_PIN 7
 
 const int trigPin = 2;
 const int echoPin = 4;
@@ -33,17 +33,17 @@ void loop() {
 
   // convert the time into a distance
   inches = microsecondsToInches(duration);
-//  //DHT 11 Module
-//  int chk = DHT.read11(DHT11_PIN);
-//  Serial.print("Temperature = ");
-//  Serial.println(DHT.temperature);
-//  Serial.print("Humidity = ");
-//  Serial.println(DHT.humidity);
-
-
-  String resp = inches < 40 ? "True" : "False";
-  Serial.println( resp + "," + 69 + "," + 3);
- // Serial.println( resp + "," + DHT.temperature + "," + DHT.humidity); <- what it will look like
+  //DHT 11 Module
+  int chk = DHT.read11(DHT11_PIN);
+  double temp = tempConversion(DHT.temperature);
+  //  Serial.print("Temperature = ");
+  //  Serial.println(temp);
+  double humid = DHT.humidity;
+  //  Serial.print("Humidity = ");
+  //  Serial.println(humid );
+  
+  String resp = inches < 20 ? "true" : "false";
+  Serial.println( resp + "," + String(temp) + "," + String(humid));
 
 delay(1000);
 }
@@ -51,4 +51,8 @@ delay(1000);
 long microsecondsToInches(long microseconds)
 {
   return microseconds / 74 / 2;
+}
+
+double tempConversion (double temp){
+  return ((temp*(1.8)) + 32);
 }
