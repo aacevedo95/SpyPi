@@ -5,7 +5,6 @@ import TemperatureTab from "./widgets/Temperature";
 import HumidityTab from "./widgets/Humidity";
 import HoursTab from "./widgets/BusyHours";
 import CameraTab from "./widgets/Camera";
-import LightswitchTab from "./widgets/Lightswitch";
 // Importing CSS
 import "./styles/App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -36,7 +35,6 @@ class App extends Component {
           <HumidityTab list={this.state.list} />
           <HoursTab list={this.state.list} />
           <CameraTab />
-          <LightswitchTab />
         </div>
       </div>
     );

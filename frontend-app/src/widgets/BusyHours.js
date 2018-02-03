@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../styles/widgets.css";
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 import { Button, Modal } from "react-bootstrap";
-const moment = require('moment');
+const moment = require("moment");
 
 class HoursTab extends Component {
   constructor(props) {
@@ -13,43 +13,19 @@ class HoursTab extends Component {
     };
   }
 
-
-  componentWillReceiveProps(next) {
-    const map = new Map();
-    next.list.forEach(element => {
-      const hour =  moment(element.timeStamp).local().get('hour');
-      map.set(hour, map.get(hour) ? map.get(hour) + 1 : 1);
-    });
-    map.forEach((key, val) => {
-
-    });
-
-    this.setState({
-      mostBusyHour: this.getCurr(next),
-      leastBusyHour: this.getMax(next)
-    });
-
-  }
-
-  mostHour(hour){
-    
-  }
-
-  leastHour(hour){
-
-  }
-
-  msToTime(duration) {
-    var seconds = parseInt((duration / 1000) % 60, 10),
-      minutes = parseInt((duration / (1000 * 60)) % 60, 10),
-      hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
-    hours = hours < 10 ? "0" + hours : hours;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    this.calcBusyHour(hours);    
-    return hours + ":" + minutes + ":" + seconds;
-  }
+  // componentWillReceiveProps(next) {
+  //   const map = new Map();
+  //   next.list.forEach(element => {
+  //     const hour =  moment(element.timeStamp).local().get('hour');
+  //     map.set(hour, map.get(hour) ? map.get(hour) + 1 : 1);
+  //   });
+  //   map.forEach((key, val) => {
+  //   });
+  //   this.setState({
+  //     mostBusyHour: this.getCurr(next),
+  //     leastBusyHour: this.getMax(next)
+  //   });
+  // }
   
   render() {
     let firstDate = "";
@@ -62,20 +38,11 @@ class HoursTab extends Component {
       const second = this.props.list[19];
       const third = this.props.list[29];
       const fourth = this.props.list[this.props.list.length - 1];
-      
-    console.log('Moment below')
-    console.log(moment(fourth.timeStamp).get('hour'));
-    console.log(moment(fourth.timeStamp).local().get('minute'));
-    console.log(moment(fourth.timeStamp).local().get('second'));
-    
-    console.log('func below');
-    console.log(this.msToTime(new Date(fourth.timeStamp).getTime()));
-      
 
-      firstDate = this.msToTime(new Date(first.timeStamp).getTime());
-      secondDate = this.msToTime(new Date(second.timeStamp).getTime());
-      thirdDate = this.msToTime(new Date(third.timeStamp).getTime());
-      fourthDate = this.msToTime(new Date(fourth.timeStamp).getTime());
+      firstDate = moment(first.timeStamp).format('LTS');
+      secondDate = moment(second.timeStamp).format('LTS');
+      thirdDate = moment(third.timeStamp).format('LTS');
+      fourthDate = moment(fourth.timeStamp).format('LTS');
     }
 
     return (
@@ -105,7 +72,7 @@ class HoursTab extends Component {
               y="movementSensed"
             />
           </VictoryChart>
-          <ShowAll />
+          <ShowAll dataList ={this.props.list}/>
         </div>
       </div>
     );
@@ -121,11 +88,9 @@ class ShowAll extends Component {
       showModal: false
     };
   }
-
   close() {
     this.setState({ showModal: false });
   }
-
   open() {
     this.setState({ showModal: true });
   }
@@ -136,21 +101,20 @@ class ShowAll extends Component {
         <Button bsStyle="primary" bsSize="large" onClick={this.open}>
           See all
         </Button>
-
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Title</Modal.Title>
+            <Modal.Title>All values for the movement</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>The x is:</h4>
-            <p>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p> test</p>
+          {this.props.dataList.map(arr => {
+            return (
+              <div key={arr.timeStamp}>
+                <dt>Movement sensed?: {arr.movementSensed}</dt>
+                <dd>Time: {moment(arr.timeStamp).format('LTS')}</dd>
+                <hr />
+              </div>
+            );
+          })}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>

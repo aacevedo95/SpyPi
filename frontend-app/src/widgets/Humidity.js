@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 import { Button, Modal } from "react-bootstrap";
 import "../styles/widgets.css";
+const moment = require("moment");
 
 class HumidityTab extends Component {
   constructor(props) {
@@ -28,42 +29,31 @@ class HumidityTab extends Component {
       const valList = next.list[next.list.length - 1];
       let curr = valList.humidity;
       return curr;
-    }    
-  }
+    }
+  };
   getMax = next => {
     if (next.list && next.list.length !== 0) {
       const valList = next.list;
       var humidList = valList.map(x => x.humidity);
-      return Math.max(...humidList); 
+      return Math.max(...humidList);
     }
-  }
+  };
   getMin = next => {
     if (next.list && next.list.length !== 0) {
       const valList = next.list;
       var humidList = valList.map(x => x.humidity);
       return Math.min(...humidList);
     }
-  }
+  };
   getAvg = next => {
     if (next.list && next.list.length !== 0) {
       const valList = next.list;
       var humidList = valList.map(x => x.humidity);
       var sum = humidList.reduce((a, b) => a + b, 0);
-      var avg = Math.round( sum / (valList.length-1));
+      var avg = Math.round(sum / (valList.length - 1));
       return avg;
     }
-  }
-  msToTime(duration) {
-    var seconds = parseInt((duration / 1000) % 60, 10),
-      minutes = parseInt((duration / (1000 * 60)) % 60, 10),
-      hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
-
-    hours = hours < 10 ? "0" + hours : hours;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    return hours + ":" + minutes + ":" + seconds;
-  }
+  };
 
   render() {
     let firstDate = "";
@@ -77,20 +67,20 @@ class HumidityTab extends Component {
       const third = this.props.list[29];
       const fourth = this.props.list[this.props.list.length - 1];
 
-      firstDate = this.msToTime(new Date(first.timeStamp).getTime());
-      secondDate = this.msToTime(new Date(second.timeStamp).getTime());
-      thirdDate = this.msToTime(new Date(third.timeStamp).getTime());
-      fourthDate = this.msToTime(new Date(fourth.timeStamp).getTime());
+      firstDate = moment(first.timeStamp).format('LTS');
+      secondDate = moment(second.timeStamp).format('LTS');
+      thirdDate = moment(third.timeStamp).format('LTS');
+      fourthDate = moment(fourth.timeStamp).format('LTS');
     }
 
     return (
       <div className="tableStyle">
         <div>
           <h1>Humidity</h1>
-          <p>Current Humidity: {this.state.currHumid}</p>
-          <p>Minimum Humidity: {this.state.minHumid}</p>
-          <p>Maximum Humidity: {this.state.maxHumid}</p>
-          <p>Average Humidity: {this.state.avgHumid}</p>
+          <p>Current Humidity: {this.state.currHumid}%</p>
+          <p>Minimum Humidity: {this.state.minHumid}%</p>
+          <p>Maximum Humidity: {this.state.maxHumid}%</p>
+          <p>Average Humidity: {this.state.avgHumid}%</p>
 
           <VictoryChart // adding the material theme provided with Victory
             theme={VictoryTheme.material}
@@ -101,7 +91,11 @@ class HumidityTab extends Component {
               tickValues={[1, 20, 30, 50]}
               tickFormat={[firstDate, secondDate, thirdDate, fourthDate]}
             />
-            <VictoryAxis dependentAxis tickFormat={x => `${x}%`} />
+            <VictoryAxis
+              dependentAxis
+              tickFormat={x => `${x}%`}
+              domain={[80, 60]}
+            />
             <VictoryLine
               style={{
                 data: { stroke: "#c43a31" },
@@ -112,7 +106,7 @@ class HumidityTab extends Component {
               y="humidity"
             />
           </VictoryChart>
-          <ShowAll />
+          <ShowAll dataList = {this.props.list}/>
         </div>
       </div>
     );
@@ -128,11 +122,9 @@ class ShowAll extends Component {
       showModal: false
     };
   }
-
   close() {
     this.setState({ showModal: false });
   }
-
   open() {
     this.setState({ showModal: true });
   }
@@ -143,21 +135,20 @@ class ShowAll extends Component {
         <Button bsStyle="primary" bsSize="large" onClick={this.open}>
           See all
         </Button>
-
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Title</Modal.Title>
+            <Modal.Title>All values for Humidity </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>The x is:</h4>
-            <p>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p> test</p>
+          {this.props.dataList.map(arr => {
+            return (
+              <div key={arr.timeStamp}>
+                <dt>Humidity: {arr.humidity}%</dt>
+                <dd>Time: {moment(arr.timeStamp).format('LTS')}</dd>
+                <hr />
+              </div>
+            );
+          })}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
