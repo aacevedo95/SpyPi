@@ -26,7 +26,7 @@ class TemperatureTab extends Component {
 
   getCurr = next => {
     if (next.list && next.list.length !== 0) {
-      const valList = next.list[next.list.length - 1];
+      const valList = next.list[0];
       let curr = valList.temperature;
       return curr;
     }
