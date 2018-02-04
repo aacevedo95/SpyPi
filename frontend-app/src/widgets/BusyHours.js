@@ -38,7 +38,7 @@ class HoursTab extends Component {
       const second = this.props.list[19];
       const third = this.props.list[29];
       const fourth = this.props.list[this.props.list.length - 1];
-
+      
       firstDate = moment(first.timeStamp).format('LTS');
       secondDate = moment(second.timeStamp).format('LTS');
       thirdDate = moment(third.timeStamp).format('LTS');
@@ -109,7 +109,7 @@ class ShowAll extends Component {
           {this.props.dataList.map(arr => {
             return (
               <div key={arr.timeStamp}>
-                <dt>Movement sensed?: {arr.movementSensed}</dt>
+                <dt>Movement sensed?: {arr.movementSensed ? 'Yes' : 'No'}</dt>
                 <dd>Time: {moment(arr.timeStamp).format('LTS')}</dd>
                 <hr />
               </div>

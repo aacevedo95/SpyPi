@@ -139,7 +139,7 @@ class ShowAll extends Component {
           {this.props.dataList.map(arr => {
             return (
               <div key={arr.timeStamp}>
-                <dt>Temperature: {arr.movementSensed}F</dt>
+                <dt>Temperature: {arr.temperature}F</dt>
                 <dd>Time: {moment(arr.timeStamp).format('LTS')}</dd>
                 <hr />
               </div>
