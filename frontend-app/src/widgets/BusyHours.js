@@ -13,19 +13,22 @@ class HoursTab extends Component {
     };
   }
 
-  // componentWillReceiveProps(next) {
-  //   const map = new Map();
-  //   next.list.forEach(element => {
-  //     const hour =  moment(element.timeStamp).local().get('hour');
-  //     map.set(hour, map.get(hour) ? map.get(hour) + 1 : 1);
-  //   });
-  //   map.forEach((key, val) => {
-  //   });
-  //   this.setState({
-  //     mostBusyHour: this.getCurr(next),
-  //     leastBusyHour: this.getMax(next)
-  //   });
-  // }
+  componentWillReceiveProps(next) {
+    const map = new Map();
+    next.list.forEach(element => {
+      const hour =  moment(element.timeStamp).local().get('hour');
+      const minute = moment(element.timeStamp).local().get('minute');
+      console.log(hour+':'+minute);
+      this.setState({
+        mostBusyHour:hour+':'+minute,
+        leastBusyHour:0
+      });
+      map.set(hour, map.get(hour) ? map.get(hour) + 1 : 1);
+    });
+    map.forEach((key, val) => {
+    });
+   
+  }
   
   render() {
     let firstDate = "";
@@ -49,7 +52,7 @@ class HoursTab extends Component {
       <div className="tableStyle">
         <div>
           <h1>Busy Hours</h1>
-          <p>Busiest Hour: {this.state.curBusyHour}</p>
+          <p>Busiest Hour: {this.state.mostBusyHour}</p>
           <p>Least Busy Hour: {this.state.leastBusyHour}</p>
 
           <VictoryChart // adding the material theme provided with Victory
