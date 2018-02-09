@@ -8,22 +8,24 @@ const fs = require("fs");
 //two router.get, one for files-> red.sendFile, one fileList - > res.json(array of files)
 //frontend axios.get for localhost/img (for fileList)
 // for files just use img src="url/imgs"
-router.get("/images/:imageName", function(req, res) {
-  var fileName = req.params.imageName;
-  res.sendFile(fileName, "/home/pi/Desktop/Fotos", (err) => {
-    if (err) {
-      next(err);
-    } else {
-      console.log("Sent:", fileName);
-    }
-  });
-});
+//router.get("/images/:imageName", function(req, res) {
+//  var fileName = req.params.imageName;
+//  res.sendFile(fileName, "/home/pi/Desktop/Fotos", (err) => {
+//    if (err) {
+//      next(err);
+//    } else {
+//      console.log("Sent:", fileName);
+//    }
+//  });
+//});
 
 router.get("/images", function(req, res) {
   fs.readdir("/home/pi/Desktop/Fotos", (err, files) => {
     res.json(files);
   });
 });
+
+router.use('/image', express.static('/home/pi/Documents/SpyPi/backend-app/images'));
 
 router.get("/data", function(req, res) {
   ArData.find()

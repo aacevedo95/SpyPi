@@ -11,6 +11,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   state = {
+    imageList: [],
     list: []
   };
 
@@ -29,7 +30,7 @@ class App extends Component {
       //.get("http://192.168.1.7:4000/data")
       .then(e => {
         console.log(e);
-        this.setState({ imageLists: e.data });
+        this.setState({ imageList: e.data });
       })
       .catch(err => console.log(err));
   }
@@ -44,7 +45,7 @@ class App extends Component {
           <TemperatureTab list={this.state.list} />
           <HumidityTab list={this.state.list} />
           <HoursTab list={this.state.list} />
-          <CameraTab imageList={this.state.imageLists}/>
+          <CameraTab imageList={this.state.imageList}/>
         </div>
       </div>
     );

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../styles/widgets.css";
-require('/home/pi/Desktop/Fotos');
+import config from "../config.json";
+ 
 
 class CameraTab extends Component {
 
@@ -49,8 +50,11 @@ class ShowAll extends Component {
             <Modal.Title>Images</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {this.props.imageList}
-            <img src='/home/pi/Desktop/Fotos/fotos.jpeg' alt='oops!'/>
+            {
+               this.props.imageList.map(i => (
+                 <img src={`${config['backend_url']}/image/${i}`} alt="" />
+               ))
+            }
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>

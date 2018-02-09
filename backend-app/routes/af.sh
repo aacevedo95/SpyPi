@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-location=/home/pi/Desktop/Fotos
+location=/home/pi/Documents/SpyPi/backend-app/images
 cd $location
 ls
 fname='fotos'
