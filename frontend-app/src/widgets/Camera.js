@@ -3,25 +3,18 @@ import { Button, Modal } from "react-bootstrap";
 import "../styles/widgets.css";
 
 class CameraTab extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currTemp: "0",
-      maxTemp: "100",
-      minTemp: "-100",
-      avgTemp: "50"
-    };
-  }
+
+
   render() {
     return (
       <div className="tableStyle">
         <div>
           <h1>Movement Camera</h1>
           <center>
-            <h1>Imagine really hard this is an image.</h1>
+            <h1>Click on the button below to see the images.</h1>
           </center>
         </div>
-        <ShowAll />
+        <ShowAll imageList={this.props.imageList}/>
       </div>
     );
   }
@@ -36,11 +29,9 @@ class ShowAll extends Component {
       showModal: false
     };
   }
-
   close() {
     this.setState({ showModal: false });
   }
-
   open() {
     this.setState({ showModal: true });
   }
@@ -54,18 +45,11 @@ class ShowAll extends Component {
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Title</Modal.Title>
+            <Modal.Title>Images</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>The x is:</h4>
-            <p>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p> test</p>
+            {this.props.imageList}
+            <img src='/home/pi/Desktop/Fotos/fotos.jpeg'/>>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>

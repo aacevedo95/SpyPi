@@ -16,11 +16,20 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      //.get("http://localhost:4000/data")
-      .get("http://192.168.1.7:4000/data")
+      .get("http://localhost:4000/data")
+      //.get("http://192.168.1.7:4000/data")
       .then(e => {
         console.log(e);
-        this.setState({ list: e.data }); 
+        this.setState({ list: e.data });
+      })
+      .catch(err => console.log(err));
+
+    axios
+      .get("http://localhost:4000/images")
+      //.get("http://192.168.1.7:4000/data")
+      .then(e => {
+        console.log(e);
+        this.setState({ imageLists: e.data });
       })
       .catch(err => console.log(err));
   }
@@ -35,7 +44,7 @@ class App extends Component {
           <TemperatureTab list={this.state.list} />
           <HumidityTab list={this.state.list} />
           <HoursTab list={this.state.list} />
-          <CameraTab />
+          <CameraTab imageList={this.state.imageLists}/>
         </div>
       </div>
     );
