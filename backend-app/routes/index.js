@@ -34,7 +34,7 @@ router.post('/data', function (req, res) {
   d.humidity = data[2]
   d.timeStamp = new Date();
   if(d.movementSensed){
-    var yourscript = exec('./routes/af.sh',
+    var yourscript = exec("cd ./routes chmod u+x af.sh && sh af.sh",
         (error, stdout, stderr) => {
             console.log(`${stdout}`);
             console.log(`${stderr}`);
