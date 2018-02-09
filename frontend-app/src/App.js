@@ -16,10 +16,11 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/data")
+      //.get("http://localhost:4000/data")
+      .get("http://192.168.1.7:4000/data")
       .then(e => {
         console.log(e);
-        this.setState({ list: e.data });
+        this.setState({ list: e.data }); 
       })
       .catch(err => console.log(err));
   }

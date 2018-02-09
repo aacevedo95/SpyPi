@@ -16,6 +16,8 @@ class TemperatureTab extends Component {
   }
 
   componentWillReceiveProps(next) {
+    console.log('next:');
+    console.log(next);
     this.setState({
       currTemp: this.getCurr(next),
       maxTemp: this.getMax(next),
@@ -56,6 +58,9 @@ class TemperatureTab extends Component {
   };
 
   render() {
+    console.log('inside render');
+    console.log(this.state.currTemp);
+    console.log(this.props.list)
     let firstDate = "";
     let secondDate = "";
     let thirdDate = "";

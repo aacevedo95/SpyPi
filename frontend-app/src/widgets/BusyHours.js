@@ -5,9 +5,7 @@ import { Button, Modal } from "react-bootstrap";
 const moment = require("moment");
 
 class HoursTab extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   // componentWillReceiveProps(next) {
   //   const map = new Map();
@@ -48,8 +46,8 @@ class HoursTab extends Component {
         <div>
           <h1>Busy Hours</h1>
           <br />
-          <br />
-          <br />
+          <p>True means movement has been sensed.</p>
+          <p>False means movement has <bold>not</bold> been sensed.</p>
           <br />
           <br />
           <VictoryChart // adding the material theme provided with Victory
