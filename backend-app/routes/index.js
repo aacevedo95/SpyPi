@@ -12,7 +12,7 @@ router.get("/images/:id", function(req, res) {
 });
 
 router.get("/images", function(req, res) {
-  fs.readdir('Fotos', (err, files) => {
+  fs.readdir('/home/pi/Desktop/Fotos', (err, files) => {
     res.json(files);
   });
 });
