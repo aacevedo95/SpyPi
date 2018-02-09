@@ -3,17 +3,23 @@ const axios = require("axios");
 const ArData = require("../models/arData");
 const router = express.Router();
 const exec = require("child_process").exec;
-const fs = require('fs');
+const fs = require("fs");
 
 //two router.get, one for files-> red.sendFile, one fileList - > res.json(array of files)
 //frontend axios.get for localhost/img (for fileList)
 // for files just use img src="url/imgs"
 router.get("/images/:id", function(req, res) {
-  res.sendFile(req.params.id);
+  res.sendFile(fileName, "/home/pi/Desktop/Fotos", (err) => {
+    if (err) {
+      next(err);
+    } else {
+      console.log("Sent:", fileName);
+    }
+  });
 });
 
 router.get("/images", function(req, res) {
-  fs.readdir('/home/pi/Desktop/Fotos', (err, files) => {
+  fs.readdir("/home/pi/Desktop/Fotos", (err, files) => {
     res.json(files);
   });
 });
