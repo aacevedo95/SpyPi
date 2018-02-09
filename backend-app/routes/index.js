@@ -3,7 +3,7 @@ const axios = require("axios");
 const ArData = require("../models/arData");
 const router = express.Router();
 const exec = require("child_process").exec;
-const fs = require('fs')
+const fs = require('fs');
 
 //two router.get, one for files-> red.sendFile, one fileList - > res.json(array of files)
 //frontend axios.get for localhost/img (for fileList)
