@@ -4,8 +4,24 @@ const ArData = require('../models/arData');
 const router = express.Router();
 const exec = require('child_process').exec;
 
+
+//two router.get, one for files-> red.sendFile, one fileList - > res.json(array of files)
+//frontend axios.get for localhost/img (for fileList)
+// for files just use img src="url/imgs"
+router.get('/image', function(req, res){
+
+});
+
+router.get('/image', function(req, res){
+  fs.readdir(testFolder, (err, files) => {
+    files.forEach(fileName => {
+      res.json(fileName);
+    });
+  })
+});
+
 router.get('/data', function (req, res) {
-  ArData.find().sort({_id:-1}).limit(50).exec((err, data) => {
+  ArData.find().sort({_id:-1}).limit(100).exec((err, data) => {
     res.json(data);
   });
 });
@@ -17,8 +33,8 @@ router.post('/data', function (req, res) {
   d.temperature = data[1]
   d.humidity = data[2]
   d.timeStamp = new Date();
-  if(d.movementSensed === true){
-    var yourscript = exec('sh af.sh',
+  if(d.movementSensed){
+    var yourscript = exec('./routes/af.sh',
         (error, stdout, stderr) => {
             console.log(`${stdout}`);
             console.log(`${stderr}`);
@@ -32,5 +48,6 @@ router.post('/data', function (req, res) {
   });
   res.send(true);
 });
+
 
 module.exports = router;

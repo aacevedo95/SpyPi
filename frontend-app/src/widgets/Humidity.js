@@ -63,9 +63,9 @@ class HumidityTab extends Component {
     let fourthDate = "";
 
     if (this.props.list && this.props.list.length !== 0) {
-      const first = this.props.list[0];
-      const second = this.props.list[19];
-      const third = this.props.list[29];
+      const first = this.props.list[24];
+      const second = this.props.list[49];
+      const third = this.props.list[74];
       const fourth = this.props.list[this.props.list.length - 1];
 
       firstDate = moment(first.timeStamp).format('LTS');
