@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../styles/widgets.css";
+require('/home/pi/Desktop/Fotos');
 
 class CameraTab extends Component {
 
@@ -49,7 +50,7 @@ class ShowAll extends Component {
           </Modal.Header>
           <Modal.Body>
             {this.props.imageList}
-            <img src='/home/pi/Desktop/Fotos/fotos.jpeg'/>>
+            <img src='/home/pi/Desktop/Fotos/fotos.jpeg' alt='oops!'/>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>

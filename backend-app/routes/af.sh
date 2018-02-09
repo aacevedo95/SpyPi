@@ -1,10 +1,10 @@
 
 #!/bin/bash
 
-location=/home/pi/Desktop/Fotos
+location=/Documents/SpyPi/frontend-app/src/images
 cd $location
 ls
-fname='fotos'
+fname='image'
 i=1
 j=1
 #fname=$fname-$.jpeg
