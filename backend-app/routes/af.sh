@@ -1,10 +1,10 @@
 
 #!/bin/bash
 
-location= /../../frontend-app/src/images
+location=/home/pi/Desktop/Fotos
 cd $location
 ls
-fname='image'
+fname='fotos'
 i=1
 j=1
 #fname=$fname-$.jpeg

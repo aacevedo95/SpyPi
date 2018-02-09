@@ -10,7 +10,7 @@ const fs = require("fs");
 // for files just use img src="url/imgs"
 router.get("/images/:imageName", function(req, res) {
   var fileName = req.params.imageName;
-  res.sendFile(fileName, "/home/pi/Documents/SpyPi/frontend-app/src/images", (err) => {
+  res.sendFile(fileName, "/home/pi/Desktop/Fotos", (err) => {
     if (err) {
       next(err);
     } else {
@@ -20,7 +20,7 @@ router.get("/images/:imageName", function(req, res) {
 });
 
 router.get("/images", function(req, res) {
-  fs.readdir("/home/piDocuments/SpyPi/frontend-app/src/images", (err, files) => {
+  fs.readdir("/home/pi/Desktop/Fotos", (err, files) => {
     res.json(files);
   });
 });
