@@ -47,7 +47,7 @@ class HoursTab extends Component {
           <h1>Busy Hours</h1>
           <br />
           <p>True means movement has been sensed.</p>
-          <p>False means movement has <bold>not</bold> been sensed.</p>
+          <p>False means movement has not been sensed.</p>
           <br />
           <br />
           <VictoryChart // adding the material theme provided with Victory

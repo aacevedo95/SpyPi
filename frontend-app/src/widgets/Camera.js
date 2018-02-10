@@ -39,6 +39,7 @@ class ShowAll extends Component {
   }
 
   render() {
+    
     return (
       <div>
         <Button bsStyle="primary" bsSize="large" onClick={this.open}>
@@ -50,11 +51,13 @@ class ShowAll extends Component {
             <Modal.Title>Images</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+	<div className="imgStyle">
             {
                this.props.imageList.map(i => (
                  <img src={`${config['backend_url']}/image/${i}`} alt="" />
                ))
             }
+	</div>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>

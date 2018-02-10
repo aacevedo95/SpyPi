@@ -8,4 +8,4 @@ backend-app/private.json
 package-lock.json
 *.lock
 
-/frontend-app/public/images/
+frontend-app/src/config.json
