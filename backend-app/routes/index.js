@@ -20,7 +20,7 @@ const fs = require("fs");
 //});
 
 router.get("/images", function(req, res) {
-  fs.readdir("/home/pi/Desktop/Fotos", (err, files) => {
+  fs.readdir('/home/pi/Documents/SpyPi/backend-app/images', (err, files) => {
     res.json(files);
   });
 });
