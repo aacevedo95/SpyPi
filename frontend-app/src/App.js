@@ -8,6 +8,7 @@ import CameraTab from "./widgets/Camera";
 // Importing CSS
 import "./styles/App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import config from "./config.json";
 
 class App extends Component {
   state = {
@@ -17,8 +18,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/data")
-      //.get("http://192.168.1.7:4000/data")
+      .get(`${config['backend_url']}/data/`)
       .then(e => {
         console.log(e);
         this.setState({ list: e.data });
@@ -26,8 +26,7 @@ class App extends Component {
       .catch(err => console.log(err));
 
     axios
-      .get("http://localhost:4000/images")
-      //.get("http://192.168.1.7:4000/data")
+      .get(`${config['backend_url']}/images/`)
       .then(e => {
         console.log(e);
         this.setState({ imageList: e.data });
